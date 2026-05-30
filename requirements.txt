@@ -1,0 +1,4 @@
+# DDoS Detection System — Enhanced Edition
+# pip install -r requirements.txt
+
+matplotlib>=3.7.0      # Real-time charts in GUI (optional but recommended)

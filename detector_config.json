@@ -1,0 +1,27 @@
+{
+    "threshold_connections": 20,
+    "threshold_period": 5,
+    "notification_timeout": 30,
+    "monitored_ports": [
+        80,
+        443,
+        8080,
+        5000
+    ],
+    "udp_threshold": 50,
+    "syn_threshold": 30,
+    "http_threshold": 40,
+    "slowloris_threshold": 15,
+    "amplification_threshold": 30,
+    "auto_block": false,
+    "block_duration": 300,
+    "server_port": 8080,
+    "email_alerts": false,
+    "email_smtp": "smtp.gmail.com",
+    "email_port": 587,
+    "email_user": "",
+    "email_password": "",
+    "email_to": "",
+    "log_file": "ddos_detector.log",
+    "csv_export": "attack_log.csv"
+}

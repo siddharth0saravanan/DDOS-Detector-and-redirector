@@ -1,92 +1,230 @@
-A cross-platform DDoS detection, monitoring and testing toolkit built for learning and lab environments.
+# DDoS Detection System
 
-📁 File Structure
-ddos/
-├── detector_core.py       # Core detection engine (all platforms)
-├── gui_detector.py        # Enhanced GUI application
-├── traffic_generator.py   # Multi-attack-type traffic simulator
-├── server.py              # Enhanced test HTTP server
-├── detector_config.json   # Configuration (auto-created on first run)
-├── requirements.txt       # Python dependencies
+A cross-platform DDoS detection, monitoring, and testing toolkit developed for educational and laboratory environments.
+
+---
+
+## 📁 Project Structure
+
+```text
+ddos_enhanced/
+├── detector_core.py       # Core detection engine
+├── gui_detector.py        # GUI application
+├── traffic_generator.py   # Traffic simulation tool
+├── server.py              # Test HTTP server
+├── detector_config.json   # Configuration file (auto-generated)
+├── requirements.txt       # Required dependencies
 └── README.md
+```
 
-🚀 Quick Start
+---
 
-1. Install dependencies
+## 🚀 Getting Started
+
+### 1. Install Dependencies
+
+```bash
 pip install -r requirements.txt
-2. Start the test server
+```
+
+### 2. Start the Test Server
+
+```bash
 python server.py --port 8080
-3. Launch the GUI detector
+```
+
+### 3. Launch the Detection GUI
+
+```bash
 python gui_detector.py
-4. Run a traffic simulation (in a third terminal)
+```
+
+### 4. Generate Test Traffic
+
+```bash
 python traffic_generator.py 127.0.0.1 --port 8080 --type http --rate 200 --threads 4 --duration 30
+```
 
-🔍 What's New vs Original
-Feature	Original	Enhanced
-OS Support	Windows only (netstat)	✅ Windows + Linux (/proc/net/tcp) + Mac
-Attack Types	TCP flood only	✅ TCP, UDP, SYN, HTTP, Slowloris, Amplification
-Detection	Single threshold	✅ Per-attack-type thresholds with severity levels
-GUI	Basic tkinter	✅ Dark cyberpunk theme, stat cards, event feed
-Charts	None	✅ Real-time live chart (matplotlib) + sparklines
-Auto-Block	None	✅ iptables / netsh / pfctl integration
-Logging	Text file only	✅ Colour-coded log viewer + CSV export
-Email Alerts	None	✅ SMTP email on detection
-Rate Limiting	None	✅ Server-side per-IP rate limiting (429 responses)
-Config	Fixed values	✅ Full settings tab, live reload
-False Positives	High (single metric)	✅ Deduplication, per-attack cooldowns
+---
 
-🌐 Attack Types (traffic_generator.py)
-Type	Description	Key Args
-normal	Legit HTTP GET traffic (baseline)	--rate, --threads
-tcp	Raw TCP connection flood	--rate, --threads
-udp	UDP datagram flood	--rate, --threads
-syn	SYN flood (connect + immediate close)	--rate, --threads
-http	HTTP GET/POST flood, random paths + agents	--rate, --threads
-slowloris	Slow HTTP header attack	--connections
-amplification	DNS/NTP-style small-UDP simulation	--rate
+## ✨ Features
 
-Examples
-# TCP flood — 10 threads × 100 conn/s for 60s
+### Cross-Platform Support
+
+- Windows
+- Linux
+- macOS
+
+### Attack Detection
+
+The system supports detection of:
+
+- TCP Flood
+- UDP Flood
+- SYN Flood
+- HTTP Flood
+- Slowloris Attack
+- Amplification-style Traffic
+
+### Monitoring and Visualization
+
+- Real-time traffic monitoring
+- Live statistics dashboard
+- Event feed
+- Attack logging
+- Interactive charts and graphs
+
+### Automated Response
+
+- Automatic IP blocking
+- Temporary firewall rules
+- Configurable block duration
+
+### Notifications
+
+- Email alerts via SMTP
+- Severity-based attack notifications
+
+---
+
+## 🌐 Traffic Generator Modes
+
+| Mode | Description |
+|--------|-------------|
+| normal | Legitimate HTTP traffic |
+| tcp | TCP connection flood |
+| udp | UDP packet flood |
+| syn | SYN flood simulation |
+| http | High-rate HTTP GET/POST requests |
+| slowloris | Long-lived HTTP connections |
+| amplification | UDP amplification-style traffic |
+
+---
+
+## 🧪 Example Commands
+
+### TCP Flood
+
+```bash
 python traffic_generator.py 127.0.0.1 --type tcp --rate 100 --threads 10 --duration 60
+```
 
-# Slowloris — hold 500 connections open
+### Slowloris Attack Simulation
+
+```bash
 python traffic_generator.py 127.0.0.1 --type slowloris --connections 500 --port 8080
+```
 
-# UDP flood
+### UDP Flood
+
+```bash
 python traffic_generator.py 127.0.0.1 --type udp --rate 300 --port 8080
+```
 
-🖥️ GUI Tabs
-Tab	Description
-📊 Dashboard	Live stat cards, recent event feed, sparkline graphs
-🚨 Alerts	Full attack log table with severity colours, CSV export
-🌐 IP Monitor	Top-talker table, manual IP block input
-📈 Charts	Real-time matplotlib line chart + attack-type bar chart
-⚙️ Settings	All thresholds, auto-block, email config, file paths
-📋 Logs	Colour-coded log viewer with refresh/clear/open
+---
 
-🚫 Auto-Blocking
-Enable in Settings → Auto-Blocking. Requires elevated privileges:
+## 🖥️ GUI Overview
 
-Linux: sudo python gui_detector.py (uses iptables)
-Windows: Run as Administrator (uses netsh advfirewall)
-Mac: sudo python gui_detector.py (uses pfctl)
-Blocked IPs are automatically unblocked after block_duration seconds.
+### 📊 Dashboard
 
-📧 Email Alerts
-Enable in Settings → Email Alerts
-Fill in SMTP server, port, sender email, password, recipient
-For Gmail: use an App Password
+- Live traffic statistics
+- Detection summaries
+- Recent events
+- Quick system status
 
-⚙️ Detection Thresholds
-Config Key	Default	Meaning
-threshold_connections	100	TCP connections in threshold_period seconds
-threshold_period	5	Sliding window in seconds
-udp_threshold	200	UDP datagrams per window
-syn_threshold	80	Half-open (SYN) connections
-http_threshold	150	HTTP requests per window
-slowloris_threshold	40	Long-lived connections from same IP
-amplification_threshold	100	Small UDP to DNS/NTP ports
+### 🚨 Alerts
 
-⚠️ Disclaimer
-This tool is for educational and authorised lab use only.
-Do not use the traffic generator against systems you do not own or have written permission to test."
+- Attack logs
+- Severity indicators
+- Export to CSV
+
+### 🌐 IP Monitor
+
+- Active IP tracking
+- Connection statistics
+- Manual IP blocking
+
+### 📈 Charts
+
+- Real-time traffic graphs
+- Attack distribution charts
+
+### ⚙️ Settings
+
+- Detection thresholds
+- Auto-block configuration
+- Email settings
+- Logging preferences
+
+### 📋 Logs
+
+- View stored logs
+- Refresh and clear entries
+- Export records
+
+---
+
+## 🚫 Auto-Blocking
+
+Auto-blocking can be enabled through the Settings tab.
+
+### Linux
+
+```bash
+sudo python gui_detector.py
+```
+
+### Windows
+
+Run the application as Administrator.
+
+### macOS
+
+```bash
+sudo python gui_detector.py
+```
+
+Blocked IP addresses are automatically removed after the configured timeout period.
+
+---
+
+## 📧 Email Alerts
+
+To enable email notifications:
+
+1. Open **Settings**
+2. Enable **Email Alerts**
+3. Enter:
+   - SMTP Server
+   - Port Number
+   - Sender Email
+   - App Password
+   - Recipient Email
+
+For Gmail, use an **App Password** instead of your account password.
+
+---
+
+## ⚙️ Detection Parameters
+
+| Parameter | Default | Description |
+|------------|---------|-------------|
+| threshold_connections | 100 | TCP connections per window |
+| threshold_period | 5 sec | Monitoring window size |
+| udp_threshold | 200 | UDP packet threshold |
+| syn_threshold | 80 | SYN connection threshold |
+| http_threshold | 150 | HTTP request threshold |
+| slowloris_threshold | 40 | Long-lived connections threshold |
+| amplification_threshold | 100 | Amplification traffic threshold |
+
+All parameters can be modified through the Settings page.
+
+---
+
+## ⚠️ Disclaimer
+
+This project was developed for educational, research, and authorized testing purposes only.
+
+The traffic generation module should only be used on systems that you own or have explicit permission to test. Unauthorized use against third-party systems may violate laws, regulations, or organizational policies.
+
+---
